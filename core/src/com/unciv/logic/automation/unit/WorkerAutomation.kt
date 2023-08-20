@@ -20,8 +20,10 @@ import com.unciv.models.ruleset.tile.TileImprovement
 import com.unciv.models.ruleset.unique.LocalUniqueCache
 import com.unciv.models.ruleset.unique.UniqueType
 import com.unciv.ui.screens.worldscreen.unit.actions.UnitActions
+import com.unciv.utils.Concurrency
 import com.unciv.utils.Log
 import com.unciv.utils.debug
+import kotlinx.coroutines.launch
 
 private object WorkerAutomationConst {
     /** BFS max size is determined by the aerial distance of two cities to connect, padded with this */
@@ -177,9 +179,13 @@ class WorkerAutomation(
         if (tryConnectingCities(unit)) return //nothing to do, try again to connect cities
 
         val citiesToNumberOfUnimprovedTiles = HashMap<String, Int>()
-        for (city in unit.civ.cities) {
-            citiesToNumberOfUnimprovedTiles[city.id] = city.getTiles()
-                .count { it.isLand && it.civilianUnit == null && (tileCanBeImproved(unit, it) || it.isPillaged()) }
+        Concurrency.runBlocking {
+            for (city in unit.civ.cities) {
+                launch {
+                    citiesToNumberOfUnimprovedTiles[city.id] = city.getTiles()
+                        .count { it.isLand && it.civilianUnit == null && (tileCanBeImproved(unit, it) || it.isPillaged()) }
+                }
+            }
         }
 
         val mostUndevelopedCity = unit.civ.cities.asSequence()
