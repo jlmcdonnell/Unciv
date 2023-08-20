@@ -1,5 +1,6 @@
 package com.unciv.logic.automation.city
 
+import com.unciv.UncivGame
 import com.unciv.logic.automation.Automation
 import com.unciv.logic.automation.civilization.NextTurnAutomation
 import com.unciv.logic.city.CityConstructions
@@ -123,6 +124,7 @@ class ConstructionAutomation(val cityConstructions: CityConstructions){
     }
 
     private fun addMilitaryUnitChoice() {
+        if (civInfo.isHuman() && !UncivGame.Current.settings.automateNewMilitaryUnits) return
         if (!isAtWar && !cityIsOverAverageProduction) return // don't make any military units here. Infrastructure first!
         if (!isAtWar && (civInfo.stats.statsForNextTurn.gold < 0 || militaryUnits > max(5, cities * 2))) return
         if (civInfo.gold < -50) return

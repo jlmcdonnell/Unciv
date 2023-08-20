@@ -438,7 +438,6 @@ object UnitActions {
         actionList += UnitAction(UnitActionType.Automate,
             isCurrentAction = unit.isAutomated(),
             action = {
-                unit.action = UnitActionType.Automate.value
                 UnitAutomation.automateUnitMoves(unit)
             }.takeIf { unit.currentMovement > 0 }
         )
