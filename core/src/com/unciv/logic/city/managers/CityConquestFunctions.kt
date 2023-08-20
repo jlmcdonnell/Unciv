@@ -183,8 +183,10 @@ class CityConquestFunctions(val city: City){
         val foundingCiv = city.civ.gameInfo.getCivilization(city.foundingCiv)
         if (foundingCiv.isDefeated()) // resurrected civ
             for (diploManager in foundingCiv.diplomacy.values)
-                if (diploManager.diplomaticStatus == DiplomaticStatus.War)
+                if (diploManager.diplomaticStatus == DiplomaticStatus.War) {
                     diploManager.makePeace()
+                    break
+                }
 
         val oldCiv = city.civ
 

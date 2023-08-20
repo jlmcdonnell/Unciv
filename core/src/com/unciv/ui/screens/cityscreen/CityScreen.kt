@@ -290,6 +290,22 @@ class CityScreen(
             razeCityButtonHolder.add(stopRazingCityButton) //.colspan(cityPickerTable.columns)
         }
 
+        if (city.foundingCiv != city.civ.civName) {
+            val returnOwner = "Return to ${city.foundingCiv}".toTextButton()
+            returnOwner.labelCell.pad(10f)
+
+            val foundingCiv = game.gameInfo?.civilizations
+                ?.firstOrNull { it.civName == city.foundingCiv }
+
+            if (foundingCiv != null) {
+                returnOwner.onClick {
+                    city.isBeingRazed = false
+                    city.liberateCity(city.civ)
+                    update()
+                }
+                razeCityButtonHolder.add(returnOwner)
+            }
+        }
         if (city.isWeLoveTheKingDayActive()) {
             addWltkIcon("OtherIcons/WLTK 2") { color = Color.FIREBRICK }.padLeft(10f)
             addWltkIcon("OtherIcons/WLTK LR") {
