@@ -56,7 +56,7 @@ object UnitActions {
         actionList += getImprovementConstructionActions(unit, tile)
         UnitActionsReligion.addActionsWithLimitedUses(unit, actionList, tile)
 
-        addAutomateAction(unit, actionList, true)
+        addAutomateAction(unit, actionList)
         addTriggerUniqueActions(unit, actionList)
         addAddInCapitalAction(unit, actionList, tile)
 
@@ -89,8 +89,6 @@ object UnitActions {
 
         addSleepActions(actionList, unit, true)
         addFortifyActions(actionList, unit, true)
-        addAutomateAction(unit, actionList, false)
-
         addSwapAction(unit, actionList)
         addDisbandAction(actionList, unit)
         addGiftAction(unit, actionList, tile)
@@ -434,12 +432,7 @@ object UnitActions {
         }
     }
 
-    private fun addAutomateAction(unit: MapUnit, actionList: ArrayList<UnitAction>, showingAdditionalActions:Boolean) {
-
-        // If either of these are true it goes in primary actions, else in additional actions
-        if ((unit.hasUnique(UniqueType.AutomationPrimaryAction) || unit.cache.hasUniqueToBuildImprovements) != showingAdditionalActions)
-            return
-
+    private fun addAutomateAction(unit: MapUnit, actionList: ArrayList<UnitAction>) {
         if (unit.isAutomated()) return
 
         actionList += UnitAction(UnitActionType.Automate,
