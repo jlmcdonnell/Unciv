@@ -72,7 +72,6 @@ class GameSettings {
     var automatedWorkersReplaceImprovements = true
     var automatedUnitsMoveOnTurnStart: Boolean = false
     var automatedUnitsCanUpgrade: Boolean = true
-    var automateNewMilitaryUnits: Boolean = true
 
     var showMinimap: Boolean = true
     var minimapSize: Int = 6    // default corresponds to 15% screen space

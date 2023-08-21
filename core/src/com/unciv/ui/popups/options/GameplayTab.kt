@@ -2,6 +2,7 @@ package com.unciv.ui.popups.options
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.unciv.GUI
+import com.unciv.UncivGame
 import com.unciv.logic.civilization.PlayerType
 import com.unciv.models.metadata.GameSettings
 import com.unciv.ui.screens.basescreen.BaseScreen
@@ -30,12 +31,6 @@ fun gameplayTab(
             }
         }
     }
-    optionsPopup.addCheckbox(
-        this,
-        "Automate military unit production",
-        settings.automateNewMilitaryUnits
-    ) { settings.automateNewMilitaryUnits = it }
-
     optionsPopup.addCheckbox(this, "Auto-build roads", settings.autoBuildingRoads) { settings.autoBuildingRoads = it }
     optionsPopup.addCheckbox(
         this,
@@ -52,11 +47,6 @@ fun gameplayTab(
         "Automated units can upgrade",
         settings.automatedUnitsCanUpgrade, true
     ) { settings.automatedUnitsCanUpgrade = it }
-    optionsPopup.addCheckbox(
-        this,
-        "Enable new unit automation",
-        settings.automateNewMilitaryUnits, true
-    ) { settings.automateNewMilitaryUnits = it }
     optionsPopup.addCheckbox(this, "Order trade offers by amount", settings.orderTradeOffersByAmount) { settings.orderTradeOffersByAmount = it }
     optionsPopup.addCheckbox(this, "Ask for confirmation when pressing next turn", settings.confirmNextTurn) { settings.confirmNextTurn = it }
 

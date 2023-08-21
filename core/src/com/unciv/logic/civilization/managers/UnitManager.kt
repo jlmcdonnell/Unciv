@@ -2,13 +2,11 @@ package com.unciv.logic.civilization.managers
 
 import com.badlogic.gdx.math.Vector2
 import com.unciv.UncivGame
-import com.unciv.logic.automation.unit.UnitAutomation
 import com.unciv.logic.city.City
 import com.unciv.logic.civilization.Civilization
 import com.unciv.logic.civilization.NotificationCategory
 import com.unciv.logic.map.mapunit.MapUnit
 import com.unciv.logic.map.tile.Tile
-import com.unciv.models.UnitActionType
 import com.unciv.models.ruleset.unique.UniqueTriggerActivation
 import com.unciv.models.ruleset.unique.UniqueType
 import com.unciv.models.ruleset.unit.BaseUnit
@@ -38,13 +36,6 @@ class UnitManager(val civInfo:Civilization) {
         val placedUnit = placeUnitNearTile(cityToAddTo.location, unit.name)
         // silently bail if no tile to place the unit is found
             ?: return null
-
-        if (UncivGame.Current.settings.automateNewMilitaryUnits) {
-            println("Automating new unit")
-            placedUnit.action = UnitActionType.Automate.value
-            UnitAutomation.automateUnitMoves(placedUnit)
-        }
-
         if (unit.isGreatPerson()) {
             civInfo.addNotification("A [${unit.name}] has been born in [${cityToAddTo.name}]!", placedUnit.getTile().position, NotificationCategory.General, unit.name)
         }
@@ -85,7 +76,7 @@ class UnitManager(val civInfo:Civilization) {
                 if (!unique.hasTriggerConditional())
                     UniqueTriggerActivation.triggerUnitwideUnique(unique, unit, triggerNotificationText = triggerNotificationText)
             for (unique in civInfo.getTriggeredUniques(UniqueType.TriggerUponGainingUnit))
-                if (unique.conditionals.any { it.isOfType(UniqueType.TriggerUponGainingUnit) &&
+                if (unique.conditionals.any { it.isOfType(UniqueType.TriggerUponGainingUnit) && 
                         unit.matchesFilter(unique.params[0]) })
                     UniqueTriggerActivation.triggerCivwideUnique(unique, civInfo, triggerNotificationText = triggerNotificationText)
             if (unit.baseUnit.getResourceRequirementsPerTurn().isNotEmpty())
