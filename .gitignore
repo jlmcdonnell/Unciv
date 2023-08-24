@@ -152,6 +152,9 @@ android/assets/music/
 android/assets/SaveFiles/
 android/assets/scenarios/
 SaveFiles/
+GameSettings.json
+lasterror.txt
+music
 
 # Visual Studio Code
 .vscode/
