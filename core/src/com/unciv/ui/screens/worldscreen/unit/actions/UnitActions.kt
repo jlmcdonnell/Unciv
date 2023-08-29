@@ -126,17 +126,11 @@ object UnitActions {
     private fun addDisbandAction(actionList: ArrayList<UnitAction>, unit: MapUnit) {
         val worldScreen = GUI.getWorldScreen()
         actionList += UnitAction(type = UnitActionType.DisbandUnit, action = {
-            if (!worldScreen.hasOpenPopups()) {
-                val disbandText = if (unit.currentTile.getOwner() == unit.civ)
-                    "Disband this unit for [${unit.baseUnit.getDisbandGold(unit.civ)}] gold?".tr()
-                else "Do you really want to disband this unit?".tr()
-                ConfirmPopup(worldScreen, disbandText, "Disband unit") {
-                    unit.disband()
-                    unit.civ.updateStatsForNextTurn() // less upkeep!
-                    GUI.setUpdateWorldOnNextRender()
-                    if (GUI.getSettings().autoUnitCycle)
-                        worldScreen.switchToNextUnit()
-                }.open()
+            unit.disband()
+            unit.civ.updateStatsForNextTurn() // less upkeep!
+            GUI.setUpdateWorldOnNextRender()
+            if (GUI.getSettings().autoUnitCycle) {
+                worldScreen.switchToNextUnit()
             }
         }.takeIf { unit.currentMovement > 0 })
     }
