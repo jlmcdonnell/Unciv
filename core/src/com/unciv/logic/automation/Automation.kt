@@ -1,5 +1,6 @@
 package com.unciv.logic.automation
 
+import com.unciv.fork.AutomationPlugin
 import com.unciv.logic.city.City
 import com.unciv.logic.city.CityFocus
 import com.unciv.logic.civilization.Civilization
@@ -269,6 +270,10 @@ object Automation {
     /** Determines whether the AI should be willing to spend strategic resources to build
      *  [construction] for [civInfo], assumes that we are actually able to do so. */
     fun allowSpendingResource(civInfo: Civilization, construction: INonPerpetualConstruction): Boolean {
+        if (!AutomationPlugin.allowSpendingResource(civInfo, construction)) {
+            return false
+        }
+
         // City states do whatever they want
         if (civInfo.isCityState())
             return true
