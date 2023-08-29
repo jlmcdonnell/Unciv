@@ -117,7 +117,7 @@ enum class KeyboardBinding(
     SpreadReligion(Category.UnitActions, 'g'),
     RemoveHeresy(Category.UnitActions, 'h'),
     EnhanceReligion(Category.UnitActions,"Enhance a Religion", 'g'),
-    DisbandUnit(Category.UnitActions,"Disband unit", KeyCharAndCode.DEL),
+    DisbandUnit(Category.UnitActions,"Disband unit", KeyCharAndCode.BACKSPACE),
     GiftUnit(Category.UnitActions,"Gift unit", KeyCharAndCode.UNKNOWN),
     Wait(Category.UnitActions, 'z'),
     ShowAdditionalActions(Category.UnitActions,"Show more", Input.Keys.PAGE_DOWN),

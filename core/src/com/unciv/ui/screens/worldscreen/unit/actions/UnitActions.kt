@@ -57,6 +57,7 @@ object UnitActions {
         UnitActionsReligion.addActionsWithLimitedUses(unit, actionList, tile)
 
         addAutomateAction(unit, actionList)
+        addDisbandAction(actionList, unit)
         addTriggerUniqueActions(unit, actionList)
         addAddInCapitalAction(unit, actionList, tile)
 
@@ -90,7 +91,6 @@ object UnitActions {
         addSleepActions(actionList, unit, true)
         addFortifyActions(actionList, unit, true)
         addSwapAction(unit, actionList)
-        addDisbandAction(actionList, unit)
         addGiftAction(unit, actionList, tile)
         if (unit.isCivilian()) addExplorationActions(unit, actionList)
 
